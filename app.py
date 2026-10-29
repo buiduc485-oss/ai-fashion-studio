@@ -1,21 +1,20 @@
-import time
 import streamlit as st
 from gradio_client import Client, handle_file
 
 # 1. Cấu hình trang web
 st.set_page_config(
-    page_title="AI Fashion Studio - Studio Thử Đồ AI HD",
-    page_icon="👗",
+    page_title="AI Fashion Studio VIP",
+    page_icon="👑",
     layout="wide"
 )
 
-# 2. Phông nền Ảnh Studio Thời Trang Cao Cấp (Luxury Runway Background)
+# 2. Phông nền Studio Thời Trang 4K Sắc Nét + Kính Mờ Đẳng Cấp
 st.markdown("""
     <style>
-    /* Phông nền ảnh thời trang Runway / Studio chuẩn HD */
+    /* Phông nền Runway Studio 4K cực nét */
     .stApp {
-        background-image: linear-gradient(rgba(10, 10, 15, 0.75), rgba(10, 10, 15, 0.75)), 
-                          url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop');
+        background-image: linear-gradient(rgba(5, 5, 10, 0.65), rgba(5, 5, 10, 0.65)), 
+                          url('https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=2070&auto=format&fit=crop');
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
@@ -25,54 +24,56 @@ st.markdown("""
     /* Tiêu đề sang trọng */
     .title-box {
         text-align: center;
-        padding: 15px 0 10px 0;
+        padding: 10px 0 20px 0;
     }
     .main-title {
         font-family: 'Helvetica Neue', sans-serif;
         font-weight: 900;
-        font-size: 2.8rem;
-        background: linear-gradient(90deg, #ffffff, #ffd700, #ff758c);
+        font-size: 3rem;
+        background: linear-gradient(90deg, #ffffff, #ffd700, #ff007f);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         text-transform: uppercase;
         letter-spacing: 2px;
         margin-bottom: 5px;
+        text-shadow: 0 5px 25px rgba(255, 0, 127, 0.3);
     }
     .sub-title {
-        color: #e2e8f0;
-        font-size: 1.1rem;
-        font-weight: 300;
+        color: #f1f5f9;
+        font-size: 1.2rem;
+        font-weight: 400;
         letter-spacing: 1px;
     }
 
-    /* Khung Glassmorphic kính mờ độ nét cao */
+    /* Thẻ Glassmorphism siêu nét */
     div[data-testid="stColumn"] {
-        background: rgba(18, 18, 28, 0.70);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 16px;
-        padding: 24px;
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+        background: rgba(15, 15, 25, 0.78);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 18px;
+        padding: 28px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
     }
 
-    /* Nút bấm Thử đồ */
+    /* Nút bấm Thử Đồ siêu nổi bật */
     .stButton > button {
         width: 100%;
-        background: linear-gradient(90deg, #ff416c 0%, #ff4b2b 100%);
+        background: linear-gradient(90deg, #ff007f 0%, #ff4b2b 100%);
         color: #ffffff;
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 800;
-        border-radius: 10px;
-        padding: 14px 20px;
+        border-radius: 12px;
+        padding: 16px;
         border: none;
-        box-shadow: 0 4px 15px rgba(255, 75, 43, 0.5);
+        box-shadow: 0 5px 20px rgba(255, 0, 127, 0.6);
         transition: all 0.3s ease;
         text-transform: uppercase;
+        margin-top: 15px;
     }
     .stButton > button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(255, 75, 43, 0.8);
+        transform: translateY(-3px) scale(1.01);
+        box-shadow: 0 10px 30px rgba(255, 0, 127, 0.9);
     }
 
     /* Nút Shopee Affiliate */
@@ -80,15 +81,20 @@ st.markdown("""
         display: block;
         width: 100%;
         text-align: center;
-        padding: 15px;
+        padding: 16px;
         background: linear-gradient(90deg, #ee4d2d, #ff7337);
         color: #ffffff !important;
         text-decoration: none;
-        font-size: 17px;
+        font-size: 18px;
         font-weight: 800;
-        border-radius: 10px;
-        box-shadow: 0 4px 15px rgba(238, 77, 45, 0.6);
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(238, 77, 45, 0.6);
         text-transform: uppercase;
+        margin-top: 10px;
+    }
+    .shopee-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(238, 77, 45, 0.9);
     }
     </style>
 """, unsafe_allow_html=True)
@@ -97,10 +103,11 @@ st.markdown("""
 st.markdown("""
     <div class="title-box">
         <div class="main-title">✨ AI FASHION STUDIO VIP ✨</div>
-        <div class="sub-title">Thử Đồ Ảo Chuẩn HD — Giữ Nguyên Độ Sắc Nét 100%</div>
+        <div class="sub-title">Tự Động Nhận Diện & Tách Ghép Trang Phục Chuẩn HD Siêu Tốc</div>
     </div>
 """, unsafe_allow_html=True)
 
+# 3. Khởi tạo AI Engine
 @st.cache_resource
 def get_ai_client():
     try:
@@ -113,53 +120,40 @@ ai_client = get_ai_client()
 col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown("### 📸 1. Tải Hoặc Dán Ảnh Gốc (HD)")
-    person_img = st.file_uploader("👤 Ảnh Người Mẫu (Chất lượng cao)", type=["jpg", "png", "jpeg"])
-    garment_img = st.file_uploader("👗 Ảnh Trang Phục / Phụ Kiện", type=["jpg", "png", "jpeg"])
+    st.markdown("### 📸 1. Dán / Tải Ảnh Cần Ghép")
+    person_img = st.file_uploader("👤 1. Ảnh Người Mẫu Của Bạn (Kéo thả hoặc Ctrl+V)", type=["jpg", "png", "jpeg"])
+    garment_img = st.file_uploader("👗 2. Ảnh Trang Phục / Ảnh Người Khác Đang Mặc Đồ Đó (Ctrl+V)", type=["jpg", "png", "jpeg"])
     
-    st.markdown("### 🏷️ 2. Chọn Nhóm Trang Phục")
-    category = st.selectbox(
-        "Loại trang phục:",
-        [
-            "Topwear (Áo, Sơ mi, Blazer, Áo phông)",
-            "Bottomwear (Quần, Váy, Quần short)",
-            "Full Outfit (Đầm dạ hội, Bộ suit, Trang phục trọn bộ)",
-            "Swimwear / Beachwear (Bikini & Đồ đi biển)",
-            "Accessories & Shoes (Giày dép, Phụ kiện)"
-        ]
-    )
-    
-    btn_submit = st.button("🚀 THỬ ĐỒ NGAY (SIÊU SẮC NÉT)", type="primary")
+    btn_submit = st.button("🚀 THỬ ĐỒ NGAY (TỰ ĐỘNG AI HD)", type="primary")
 
 with col2:
-    st.markdown("### 🪄 3. Kết Quả Phối Đồ AI HD")
+    st.markdown("### 🪄 2. Kết Quả Phối Đồ AI HD")
     if btn_submit:
         if not person_img or not garment_img:
             st.warning("⚠️ Vui lòng tải hoặc dán đủ 2 ảnh!")
         elif ai_client is None:
-            st.error("❌ Máy chủ AI đang bận, vui lòng thử lại sau vài giây!")
+            st.error("❌ Máy chủ AI đang khởi tạo. Vui lòng bấm lại sau vài giây!")
         else:
-            with st.spinner("⏳ Đang xử lý ở độ phân giải gốc HD..."):
-                time.sleep(1)
-                
-                # Giữ nguyên 100% file gốc không nén để đảm bảo nét căng
+            with st.spinner("⚡ AI đang tự động nhận diện & tách ghép đồ nét căng..."):
+                # Lưu file trực tiếp chuẩn gốc 100% HD không nén
                 with open("temp_person.png", "wb") as f:
                     f.write(person_img.getbuffer())
                 with open("temp_garment.png", "wb") as f:
                     f.write(garment_img.getbuffer())
                 
                 try:
+                    # AI tự động trích xuất outfit từ bất kỳ bức ảnh nào
                     result = ai_client.predict(
                         dict={"background": handle_file("temp_person.png"), "layers": [], "composite": None},
                         garm_img=handle_file("temp_garment.png"),
-                        garment_des=f"A fashion item: {category}",
+                        garment_des="fashion item, clothing, outfit, dress, bikini or shoes",
                         is_checked=True,
                         is_checked_crop=False,
                         denoise_steps=30,
                         seed=42,
                         api_name="/tryon"
                     )
-                    st.image(result[0], caption="🎉 Kết quả xử lý độ phân giải HD nét căng!", use_container_width=True)
+                    st.image(result[0], caption="🎉 Ghép đồ thành công - Độ nét nguyên bản!", use_container_width=True)
                 except Exception as e:
                     st.error(f"❌ Lỗi xử lý AI: {e}")
 
